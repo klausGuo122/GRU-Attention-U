@@ -20,13 +20,13 @@ class Config():
     batch_size = 32  # 批次大小
     feature_size = 5  # 每个步长对应的特征数量，这里只使用1维，每天的风速
     num_heads = 2  # 注意力机制头的数量
-    hidden_size = 128  # lstm隐层维度
-    num_layers = 1  # lstm层数
+    hidden_size = 128  # GRU隐层维度
+    num_layers = 1  # GRU层数
     output_size = 1  # 由于是单输出任务，最终输出层大小为1，预测未来1天风速
     epochs = 1  # 迭代轮数
     best_loss = 0  # 记录损失
     learning_rate = 0.00001  # 学习率
-    model_name = 'gru_attention'  # 模型名称
+    model_name = 'gru_attention_U'  # 模型名称
     save_path = './{}.pth'.format(model_name)  # 最优模型保存路径
 
 
@@ -34,12 +34,12 @@ config = Config()
 tempfea = math.ceil(config.hidden_size*0.5)
 # 1.加载时间序列数据
 # df = pd.read_excel(config.data_path)
-dfRealTest = pd.read_excel('D:\\lxg\\deeplearn\\毕业论文\\素材\\Origin\\合并\\original\\testdata.xlsx')
+dfRealTest = pd.read_excel('D:\\guo\\deeplearn\\毕业论文\\素材\\Origin\\合并\\original\\testdata.xlsx')
 '''定义一个空DataFrame对象，用于添加每个excel中的内容，注意列名一致'''
 df_empty = pd.DataFrame(columns=['Test_Time(s)', 'Current(A)', 'Voltage(V)', 'Temperature', 'SOC'])
 
 '''定义文件夹的路径'''
-file_directory = r'D:\lxg\deeplearn\毕业论文\素材\Origin\合并\Alldata'
+file_directory = r'D:\guo\deeplearn\毕业论文\素材\Origin\合并\Alldata'
 # root为起始路径，dirs为起始路径下的文件夹，files是起始路径下的文件。
 '''利用os库的walk功能遍历文件夹里的所有文件，并读取文件名字'''
 for root, dirs, files in os.walk(file_directory):
